@@ -15,6 +15,12 @@ def main():
         elif opt in ["-m"]:
             num2 = float(arg)
         elif opt in ["-o"]:
+            pass
+        else:
+            assert False, "unhandled option"
+
+    for opt, arg in opts:
+        if opt in ["-o"]:
             if arg == "+":
                 num3 = num1 + num2
                 print("\nEl resultado es: ", num3)
@@ -31,8 +37,8 @@ def main():
                 num3 = num1 * num2
                 print("\nEl resultado es: ", num3)
                 print("\n")
-        else:
-            assert False, "unhandled option"
+            else:
+                pass
 
 if __name__ == "__main__":
     main()
