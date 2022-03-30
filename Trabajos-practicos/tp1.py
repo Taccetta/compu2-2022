@@ -44,6 +44,7 @@ def releasethechilds(NUM_PROC, verbose):
         load_animation(text2, 0.01)
     exit(2)
 
+#Lo siguiente es una animacion solo con fines cosmeticos, no tiene relacion con el contenido del TP en sí.
 def load_animation(text, t):
     # String to be displayed when the application is loading
     load_str = text
