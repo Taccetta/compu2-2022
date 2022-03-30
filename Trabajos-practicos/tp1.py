@@ -45,6 +45,7 @@ def releasethechilds(NUM_PROC, verbose):
     exit(2)
 
 #Lo siguiente es una animacion solo con fines cosmeticos, no tiene relacion con el contenido del TP en sí.
+#========================================================================================================
 def load_animation(text, t):
     # String to be displayed when the application is loading
     load_str = text
@@ -89,7 +90,9 @@ def load_animation(text, t):
         counttime = counttime + 1
     else:
         print("\n")
+#========================================================================================================
 
+#Inicio del programa:
 if __name__ == "__main__":
     text1 = "Iniciating program"
 
