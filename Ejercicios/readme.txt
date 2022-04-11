@@ -1,6 +1,6 @@
 trabajos de clase:
 
-Argumentos (ej 1 y 2) - [args]Tarea:
+Argumentos (ej 1 y 2) - [args]:
   ejercicio1.py
   ejercicio2.py
 
