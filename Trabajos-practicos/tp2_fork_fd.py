@@ -2,7 +2,6 @@
 import os
 import time
 import argparse
-import sys
 from string import ascii_uppercase
 
 def launch():
