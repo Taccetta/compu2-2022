@@ -1,39 +1,69 @@
 #!/usr/bin/
 import os
-import time
 import argparse
+import time
 
 def launch():
 
     print("TP Pipe")
     argvals = None 
     args = get_args(argvals)
-    filetxt = open_file(args.route)
-    print(filetxt[0])
+    filetxt = open_file_lines(args.route)
+    releasethechilds(filetxt[0], args.route)
 
-def open_file(
+
+def open_file_lines(
     route):
     try:
         with open(route, "r") as filetxt:
             linestext = filetxt.readlines()
             total_lines = len(linestext)
             return linestext, total_lines
+
     except:
         print("Error: No such file or directory: '"+ route +"'")
         exit(2)
 
-def reading_lines(
-    filetxt):
-    print(filetxt.readlines())
 
 def releasethechilds(
-    route):
+    filetxt, route):
 
     children_pid = []
+    for process in range(len(filetxt)):
+        r, w = os.pipe()
+        pid = os.fork()
+        if pid > 0:
+            
+            children_pid.append(pid)
+            w = os.fdopen(w, "w")
+            w.write(filetxt[process])
+            w.close()
+            
 
-def invert_chain(
-    chain):
-    return chain[::-1]
+        else:
+            print("Starting child Nº {}".format(os.getpid()))
+            os.close(w)
+            reading = os.fdopen(r)
+            wrap = reading.read()[::-1]
+            print(wrap)
+
+            r, w = os.pipe()
+            w = os.fdopen(w, "w")
+            w.write(wrap)
+            w.close()
+            os._exit(os.EX_OK)
+
+        if pid > 0:
+            os.waitpid(children_pid[process], 0)
+            reading = os.fdopen(r)
+            print("cac", reading.read())
+            
+
+    """for i, proc in enumerate(children_pid):
+        codexit = os.waitpid(proc, 0)
+        code = os.WEXITSTATUS(codexit[1])
+        print("Child's exit code:", code)"""
+
 
 def get_args(
     argv=None):
