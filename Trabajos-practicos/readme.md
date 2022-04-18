@@ -24,7 +24,7 @@
 **Enunciados:**
 ----
 
-##### Ejercicio 1 - Getopt
+### Ejercicio 1 - Getopt
 
 Crear una calculadora, donde se pase como argumentos luego de la opción -o el operador que se va a ejecutar (+,-,*,/), luego de -n el primer número de la operación, y de -m el segundo número.
 
@@ -37,7 +37,7 @@ python3 calc.py -o + -n 5 -m 6
 Considerar que el usuario puede ingresar los argumentos en cualquier orden. El programa deberá verificar que los argumentos sean válidos (no repetidos, números enteros, y operaciones válidas.
 
 ----
-##### Ejercicio 2 - Argparse
+### Ejercicio 2 - Argparse
 
 Escribir un programa que reciba dos nombres de archivos por línea de órdenes utilizando los parámetros “-i” y “-o” procesados con argparse.
 
@@ -47,7 +47,7 @@ Ejemplo:
 python3 copiar.py -i existente.txt -o nuevo.txt
 
 ----
-##### Argumentos - [Popen]
+### Argumentos - [Popen]
 
 Basándose en estos ejemplos, escribir un programa que reciba por argumentos de línea de comandos los siguientes modificadores:
 
@@ -85,7 +85,7 @@ Notas
     Los argumentos de la línea de comandos deberán ser manejados por argparse o getopt.
     Puede tomar como base los ejemplos disponibles en el repo git de la cátedra.
 ----
-##### Procesos - [fork]
+### Procesos - [fork]
 
 Escribir un programa en Python que reciba los siguientes argumentos por línea de comandos:
 
@@ -131,7 +131,7 @@ Ending process 32800
 
 ----
 
-##### Procesos - [fork_fd]
+### Procesos - [fork_fd]
 
 Escribir un programa en Python que reciba los siguientes argumentos por línea de comandos:
 
@@ -177,7 +177,7 @@ ABCBACABCABCABC
 
 ----
 
-##### Inversor de caracteres - [pipe]
+### Inversor de caracteres - [pipe]
 
 Escriba un programa que abra un archvo de texto pasado por argumento utilizando el modificador -f.
 
