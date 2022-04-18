@@ -5,40 +5,48 @@ import argparse
 
 def launch():
 
-    print("TP fork_df")
+    print("TP Pipe")
     argvals = None 
     args = get_args(argvals)
+    filetxt = open_file(args.route)
+    print(filetxt[0])
+
+def open_file(
+    route):
+    try:
+        with open(route, "r") as filetxt:
+            linestext = filetxt.readlines()
+            total_lines = len(linestext)
+            return linestext, total_lines
+    except:
+        print("Error: No such file or directory: '"+ route +"'")
+        exit(2)
+
+def reading_lines(
+    filetxt):
+    print(filetxt.readlines())
+
+def releasethechilds(
+    route):
+
+    children_pid = []
+
+def invert_chain(
+    chain):
+    return chain[::-1]
 
 def get_args(
     argv=None):
 
     try:
-        parser = argparse.ArgumentParser(description='Childs processes fork')
-        parser.add_argument('-n', '--number', type=int, help='Number of childs')
-        parser.add_argument('-r', '--times', type=int, help='Number of times of write.')
+        parser = argparse.ArgumentParser(description='Childs text inversor')
         parser.add_argument('-f', '--route', type=str, help='File export route.')
-        parser.add_argument('-v', '--modverbose', help='Verbose Mode', action='count', default=0)
         args = parser.parse_args()
 
-        if args.number == None:
-            print("Must specify a number of childs processes")
-            exit(2)
-
-        if args.route == None:
-            print("Must specify a route to save files.")
-            exit(2)
-
-        if args.modverbose > 1:
-            args.modverbose = 1
-
-        if args.times == None:
-            print("Must specify a number of times")
-            exit(2)
-
     except:
-        print("\nError: Invalid or missing arguments. Try -h to get help.")
+        print("\nError: Invalid or missing arguments. Must specify a route to save files. Try -h to get help.")
         exit(2)
-        
+
     return parser.parse_args(argv)
 
 if __name__ == "__main__":
