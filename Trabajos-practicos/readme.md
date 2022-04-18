@@ -1,7 +1,7 @@
- **Trabajos de clase:**
+ #**Trabajos de clase:**
 
 ----
-[TOCM]
+
 
 ***1. Argumentos (ej 1 y 2) - [args]:***
    - tp1_args1.py
