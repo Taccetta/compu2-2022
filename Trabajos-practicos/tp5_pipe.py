@@ -31,6 +31,7 @@ def releasethechilds(
     children_pid = []
     for process in range(len(filetxt)):
         r, w = os.pipe()
+        rc, wc = os.pipe()
         pid = os.fork()
         if pid > 0:
             
@@ -38,31 +39,22 @@ def releasethechilds(
             w = os.fdopen(w, "w")
             w.write(filetxt[process])
             w.close()
-            
 
         else:
-            print("Starting child Nº {}".format(os.getpid()))
             os.close(w)
             reading = os.fdopen(r)
             wrap = reading.read()[::-1]
-            print(wrap)
 
-            r, w = os.pipe()
-            w = os.fdopen(w, "w")
-            w.write(wrap)
-            w.close()
+            wc = os.fdopen(wc, "w")
+            wc.write(wrap)
+            wc.close()
             os._exit(os.EX_OK)
 
         if pid > 0:
+            os.close(wc)
             os.waitpid(children_pid[process], 0)
-            reading = os.fdopen(r)
-            print("cac", reading.read())
-            
-
-    """for i, proc in enumerate(children_pid):
-        codexit = os.waitpid(proc, 0)
-        code = os.WEXITSTATUS(codexit[1])
-        print("Child's exit code:", code)"""
+            reading = os.fdopen(rc)
+            print(reading.read())
 
 
 def get_args(
