@@ -17,6 +17,7 @@ class Mayusler():
         self.son_h2 = 0
         self.textfile = open(self.args.path, 'wb')
         self.parent_pid = os.getpid()
+        self.st = sys.stdin
         self.start()
 
 
@@ -29,15 +30,17 @@ class Mayusler():
     def child_one_start(self):
         self.signal_config_one()
         self.son_h1 = os.fork()
-        if self.son_h1:
+        if not self.son_h1:
             self.textfile.close()
+            self.st = open(0)
             print("Input line: ")
-            for userline in sys.stdin:
+            for userline in self.st:
                 if userline == "bye\n":
-                    os.kill(os.getpid(), s.SIGUSR2)
+                    os.kill(self.parent_pid, s.SIGUSR2)
                     break
                 self.shared_memory.seek(0)
                 self.shared_memory.write(userline.encode())
+                self.shared_memory.seek(0)
                 os.kill(self.parent_pid, s.SIGUSR1)
                 print("Input line: ")
             os._exit(0)
