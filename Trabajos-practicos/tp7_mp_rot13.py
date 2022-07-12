@@ -1,7 +1,5 @@
-import os
 import sys
 import multiprocessing as mp
-import time
 import codecs
 
 class Cypher13():
