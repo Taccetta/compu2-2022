@@ -2,7 +2,6 @@
 import argparse
 from itertools import count
 import math
-import sys
 import multiprocessing as mp
 
 
