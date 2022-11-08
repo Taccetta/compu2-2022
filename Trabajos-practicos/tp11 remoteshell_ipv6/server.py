@@ -1,29 +1,51 @@
 import socketserver as ss
 import argparse
 import subprocess
-
+import socket
+import threading
+from ipaddress import ip_address, IPv4Address
 
 def launch():
     argvals = None 
     args = get_args(argvals)
-    server(args)
+    setting(args)
 
-def server(args):
+def setting(args):
 
     host = 'localhost'
     port = args.port
     options = {'t': ss.ThreadingTCPServer, 
             'p': ss.ForkingTCPServer}
+    options6 = {'t': ThreadingTCPServerip6,
+                'p': ForkingTCPServerip6}
 
-    with options.get(args.conc)((host, port), TCPRequestHandler) as server:
-        print("Online, waiting for connections...")
+    ss.TCPServer.allow_reuse_address = True
+    
+    threading.Thread(target= server, args= (0, args, host, port, options, options6)).start()
+    threading.Thread(target= server, args= (1, args, host, port, options, options6)).start()
 
-        try:
-            server.serve_forever()
-        
-        except KeyboardInterrupt:
-            print("Shutdown...")
-            server.shutdown()
+def server(ip, args, host, port, options, options6):
+    
+    if ip == 0:
+        with  options.get(args.conc)((host, port), TCPRequestHandler) as server:
+            print("Online, waiting for connections...")
+
+            try:
+                server.serve_forever()
+            
+            except KeyboardInterrupt:
+                print("Shutdown...")
+                server.shutdown()
+    
+    else:
+        with  options6.get(args.conc)((host, port), TCPRequestHandler) as server:
+            print("Online, waiting for connections...")
+            try:
+                server.serve_forever()
+            
+            except KeyboardInterrupt:
+                print("Shutdown...")
+                server.shutdown()
 
 class TCPRequestHandler(ss.BaseRequestHandler):
 
@@ -52,9 +74,19 @@ def get_args(argv=None):
 
 
 class ThreadingTCPServer(ss.ThreadingMixIn, ss.TCPServer):
+    address_family = socket.AF_INET
     pass
 
 class ForkingTCPServer(ss.ForkingMixIn, ss.TCPServer):
+    address_family = socket.AF_INET
+    pass
+
+class ThreadingTCPServerip6(ss.ThreadingMixIn, ss.TCPServer):
+    address_family = socket.AF_INET6
+    pass
+
+class ForkingTCPServerip6(ss.ForkingMixIn, ss.TCPServer):
+    address_family = socket.AF_INET6
     pass
 
 if __name__ == "__main__":
