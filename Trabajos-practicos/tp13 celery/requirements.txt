@@ -1,0 +1,4 @@
+celery
+Redis
+
+sudo apt-get install redis-server
